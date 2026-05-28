@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVM100 Municipal Truck Chassis - Shentou Mobility</title>
+<style>
+    /* 哑光黑主题变量 (Matte Black Theme - Municipal Eco Edition) */
+    :root {
+        --bg-matte-dark: #060606;
+        --bg-matte-light: #161616;
+        --panel-matte: rgba(30, 30, 30, 0.65);
+        --border-matte: rgba(255, 255, 255, 0.06);
+        --text-white: rgba(250, 250, 250, 1);
+        --text-muted: rgba(156, 163, 175, 1);
+        --accent-teal: #14b8a6; /* 城市生态青 */
+        --accent-glow: rgba(20, 184, 166, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    
+    body {
+        background: linear-gradient(135deg, var(--bg-matte-light) 0%, var(--bg-matte-dark) 100%);
+        color: var(--text-white);
+        line-height: 1.6;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+    /* 玻璃拟态卡片公共样式 */
+    .glass-panel {
+        background: var(--panel-matte);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-matte);
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    /* 首屏 Hero Section (左右图文展台布局) */
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 85vh;
+        padding: 40px 5%;
+        background: radial-gradient(circle at right center, var(--accent-glow), transparent 50%), var(--bg-matte-dark);
+        border-bottom: 1px solid var(--border-matte);
+    }
+    .hero-content {
+        flex: 1;
+        max-width: 650px;
+        position: relative;
+        z-index: 2;
+    }
+    .hero-content h2 { font-size: 1.25rem; color: var(--accent-teal); margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; }
+    .hero-content h1 { font-size: 3.5rem; margin-bottom: 25px; color: var(--text-white); line-height: 1.15; }
+    .hero-content p { font-size: 1.25rem; color: #cbd5e1; border-left: 4px solid var(--accent-teal); padding-left: 20px; margin-bottom: 30px; }
+    
+    .hero-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 40px;
+    }
+    .img-showcase {
+        width: 100%;
+        max-width: 550px;
+        background: #ffffff; /* 适配 JPG 实景白底 */
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid rgba(20, 184, 166, 0.3);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 50px rgba(20, 184, 166, 0.12);
+        position: relative;
+        overflow: hidden;
+    }
+    .img-showcase img {
+        width: 100%;
+        display: block;
+        border-radius: 8px;
+        transition: transform 0.5s ease;
+    }
+    .img-showcase:hover img { transform: scale(1.02); }
+
+    /* Core Performance (数据矩阵) */
+    .section-title { text-align: center; font-size: 2.2rem; margin: 80px 0 40px; color: var(--text-white); }
+    
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-bottom: 80px;
+    }
+    .kpi-card {
+        padding: 35px 25px;
+        text-align: center;
+        transition: transform 0.3s ease;
+        border-top: 3px solid transparent;
+    }
+    .kpi-card:hover { transform: translateY(-5px); border-top-color: var(--accent-teal); }
+    .kpi-number { font-size: 2.4rem; font-weight: bold; color: var(--text-white); margin-bottom: 10px; line-height: 1.2; }
+    .kpi-number span { font-size: 1.1rem; color: var(--accent-teal); font-weight: normal; }
+    .kpi-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.4; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Product Highlights (三列平铺) */
+    .highlights-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-bottom: 80px;
+    }
+    .highlight-card {
+        background: linear-gradient(180deg, rgba(30,30,30,0.8) 0%, rgba(15,15,15,0.9) 100%);
+        padding: 40px 30px;
+        border-radius: 12px;
+        border: 1px solid var(--border-matte);
+        position: relative;
+        overflow: hidden;
+    }
+    .highlight-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 4px;
+        background: linear-gradient(90deg, #0d9488, var(--accent-teal));
+    }
+    .highlight-icon { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-teal); }
+    .highlight-card h3 { font-size: 1.35rem; color: var(--text-white); margin-bottom: 15px; line-height: 1.3; }
+    .highlight-card p { color: var(--text-muted); font-size: 1.05rem; }
+
+    /* 响应式调整 */
+    @media (max-width: 1024px) {
+        .hero { flex-direction: column; text-align: center; padding-top: 80px; }
+        .hero-content p { border-left: none; border-top: 4px solid var(--accent-teal); padding-left: 0; padding-top: 15px; display: inline-block; }
+        .hero-image { margin-top: 50px; padding-left: 0; }
+        .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        .highlights-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+        .hero-content h1 { font-size: 2.8rem; }
+        .kpi-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+    <!-- Section 1: Hero Banner -->
+    <header class="hero">
+        <div class="hero-content">
+            <h2>Shentou EVM100 Electric Municipal Truck Chassis</h2>
+            <h1>Zero Emissions,<br>Superior Adaptability</h1>
+            <p>Empowering Sustainable Smart City Infrastructure.</p>
+        </div>
+        <div class="hero-image">
+            <!-- 为实景图片设计高光展台 -->
+            <div class="img-showcase">
+                <img src="市政车底盘展示图 copy.jpg" alt="EVM100 Municipal Truck Chassis">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Section 2: Core Performance (数据矩阵) -->
+        <h2 class="section-title">Core Performance</h2>
+        <div class="kpi-grid">
+            <div class="glass-panel kpi-card">
+                <div class="kpi-number">4.5 - 18<span> Tons</span></div>
+                <div class="kpi-desc">High-capacity range</div>
+            </div>
+            <div class="glass-panel kpi-card">
+                <div class="kpi-number">282<span> kWh</span></div>
+                <div class="kpi-desc">Custom battery arrays up to</div>
+            </div>
+            <div class="glass-panel kpi-card">
+                <div class="kpi-number">360<span> km</span></div>
+                <div class="kpi-desc">Reliable operational range</div>
+            </div>
+            <div class="glass-panel kpi-card">
+                <div class="kpi-number">120<span> kW</span></div>
+                <div class="kpi-desc">PMSM motors up to</div>
+            </div>
+            <div class="glass-panel kpi-card">
+                <div class="kpi-number">45<span> Min</span></div>
+                <div class="kpi-desc">Rapid Charging</div>
+            </div>
+            <div class="glass-panel kpi-card">
+                <div class="kpi-number">Ultra-Low</div>
+                <div class="kpi-desc">Noise Mitigation</div>
+            </div>
+        </div>
+
+        <!-- Section 3: Product Highlights (三列平铺) -->
+        <h2 class="section-title">Product Highlights</h2>
+        <div class="highlights-grid">
+            <div class="highlight-card">
+                <div class="highlight-icon">🏗️</div>
+                <h3>Modular Chassis & Corrosion-Resistant Frame</h3>
+                <p>It features a flexible platform with standardized interfaces to easily accommodate sweepers or compactors, built with high-strength anti-corrosive steel to withstand harsh municipal waste.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">🧠</div>
+                <h3>Intelligent Dual-Drive Control Architecture</h3>
+                <p>It is equipped with a smart vehicle control unit (VCU) that independently coordinates traction driving and upper body auxiliary operations to maximize energy efficiency.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">🛡️</div>
+                <h3>Automotive-Grade Active Security Controls</h3>
+                <p>It integrates advanced safety systems including EBS, electronic stability features, and enhanced blind-spot visibility layouts to safely navigate congested pedestrian zones.</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
